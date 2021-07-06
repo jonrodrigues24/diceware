@@ -9,21 +9,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class HelloWorldController {
 
-  public static final String COMPLIMENT_FORMAT = "Good job in making it to week %d! You know more Java than 99+%%";
-  public static final String GREETING_FORMAT = "Hello, %s!";
-  public static final String EXPLANATION = "This is a simple Spring MVC-based web service.";
+  private static final String GREETING_FORMAT = "Hello, %s!";
+  private static final String COMPLIMENT_FORMAT = "Good job in making it to week %d! You now know much more Java than 99+%% of the population.";
+  private static final String EXPLANATION = "This is a simple Spring MVC-based web service.";
 
   @GetMapping("greet")
-  public String greet(@RequestParam(name = "t", required = false, defaultValue = "world") String target) {
-
+  public String greet(
+      @RequestParam(name = "t", defaultValue = "world") String target) {
     return String.format(GREETING_FORMAT, target);
   }
 
   @GetMapping("compliment")
   public String beNice(@RequestParam(name = "w", defaultValue = "5") int week) {
-
-    return COMPLIMENT_FORMAT;
-
+    return String.format(COMPLIMENT_FORMAT, week);
   }
 
   @GetMapping
@@ -32,3 +30,4 @@ public class HelloWorldController {
   }
 
 }
+
