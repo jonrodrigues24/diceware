@@ -1,11 +1,15 @@
 package edu.cnm.deepdive.diceware.model.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -30,6 +34,9 @@ public class Passphrase {
   @Transient
   private int length;
 
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "passphrase")
+  private final List<Word> words = new LinkedList<>();
+
   public UUID getId() {
     return id;
   }
@@ -45,5 +52,10 @@ public class Passphrase {
   public void setLength(int length) {
     this.length = length;
   }
+
+  public List<Word> getWords() {
+    return words;
+  }
 }
+
 
